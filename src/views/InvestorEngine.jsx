@@ -2,109 +2,151 @@ import React, { useState } from 'react'
 import { Lock } from 'lucide-react'
 import Sidebar from '../components/Sidebar'
 
+const tabs = [
+  { id: 'pipeline',  label: 'Capital Pipeline' },
+  { id: 'investors', label: 'Investor Profiles' },
+  { id: 'intake',    label: 'Deal Intake' },
+  { id: 'termsheet', label: 'Term Sheet' },
+]
+
 export default function InvestorEngine() {
   const [tab, setTab] = useState('pipeline')
 
-  const tabs = ['pipeline', 'investors', 'intake', 'termsheet']
-
   return (
-    <main className="min-h-screen bg-[#020712] text-white">
-      <div className="grid min-h-screen" style={{ gridTemplateColumns: '280px 1fr' }}>
-        <Sidebar />
+    <main className="flex min-h-screen" style={{ background: 'var(--page-bg)' }}>
+      <Sidebar />
 
-        <section className="px-8 py-7">
-          <header className="mb-6 flex items-start justify-between">
-            <div>
-              <h1 className="text-4xl font-semibold tracking-tight text-[#c8a96a]">Investor Engine</h1>
-              <p className="mt-2 text-white/55 max-w-xl">Capital pipeline management, investor profiles, deal intake, and term sheet builder.</p>
-            </div>
-            <button className="flex items-center gap-2 rounded-lg border border-white/20 bg-black/25 px-5 py-3 text-sm text-[#7DB4FF]">
-              <Lock size={16} /> Restricted Access
-            </button>
-          </header>
-
-          {/* NAV TABS */}
-          <div className="flex gap-3 mb-6">
-            {tabs.map(t => (
-              <button key={t} onClick={() => setTab(t)}
-                className={`px-5 py-2 rounded-lg text-sm font-medium uppercase tracking-wide transition ${tab === t ? 'bg-[#c8a96a] text-black' : 'bg-white/10 text-white/70 hover:bg-white/15'}`}>
-                {t}
-              </button>
-            ))}
+      <section className="flex-1 px-10 py-8 overflow-auto">
+        {/* Header */}
+        <header className="flex items-start justify-between mb-8">
+          <div style={{ maxWidth: 520 }}>
+            <p className="t-label mb-3">Investor Room</p>
+            <h1 className="t-display mb-3">Investor Engine</h1>
+            <p className="t-body">
+              Capital pipeline management, investor profiling, deal intake, and term sheet generation for institutional engagements.
+            </p>
           </div>
+          <button className="tpg-btn flex items-center gap-2 mt-1">
+            <Lock size={13} /> Restricted Access
+          </button>
+        </header>
 
-          {tab === 'pipeline' && (
-            <Section title="Capital Pipeline">
-              <div className="overflow-hidden rounded-xl border border-white/10">
-                <table className="w-full text-left text-sm">
-                  <thead className="bg-white/[0.05] text-xs uppercase tracking-wide text-white/45">
-                    <tr>{['Investor','Project','Stage','Amount'].map(h => <th key={h} className="px-5 py-3">{h}</th>)}</tr>
-                  </thead>
-                  <tbody>
-                    {[
-                      ['Fund A','Hokkaido','Soft Commit','$25MM'],
-                      ['Family Office B','Antigua','Prospect','$50MM'],
-                      ['PE Group C','Dual','Under Review','$100MM'],
-                    ].map((r, i) => (
-                      <tr key={i} className="border-t border-white/10 hover:bg-white/[0.03]">
-                        {r.map((c, j) => <td key={j} className="px-5 py-4 text-white/70">{c}</td>)}
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+        {/* Tabs */}
+        <div className="flex gap-1 mb-8 p-1 rounded-lg" style={{ background: 'var(--card-bg2)', border: '1px solid var(--border)', width: 'fit-content' }}>
+          {tabs.map(t => (
+            <button key={t.id} onClick={() => setTab(t.id)}
+              style={{
+                padding: '7px 18px',
+                borderRadius: 8,
+                fontSize: '0.8125rem',
+                fontWeight: tab === t.id ? 500 : 400,
+                background: tab === t.id ? 'var(--card-bg)' : 'transparent',
+                color: tab === t.id ? 'var(--text-1)' : 'var(--text-3)',
+                border: tab === t.id ? '1px solid var(--border2)' : '1px solid transparent',
+                cursor: 'pointer',
+                transition: 'all 0.15s ease',
+              }}>
+              {t.label}
+            </button>
+          ))}
+        </div>
+
+        {tab === 'pipeline' && (
+          <Section title="Capital Pipeline" subtitle="Active capital commitments and prospects across the pilot portfolio.">
+            <div className="tpg-card" style={{ padding: 0, overflow: 'hidden' }}>
+              <table className="tpg-table">
+                <thead>
+                  <tr>
+                    <th>Investor</th><th>Project</th><th>Stage</th><th>Amount</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {[
+                    ['Fund A', 'Hokkaido', 'Soft Commit', '$25MM'],
+                    ['Family Office B', 'Antigua', 'Prospect', '$50MM'],
+                    ['PE Group C', 'Dual', 'Under Review', '$100MM'],
+                  ].map((r, i) => (
+                    <tr key={i}>
+                      {r.map((c, j) => <td key={j} style={j === 3 ? { fontFamily: 'var(--serif)', color: 'var(--text-1)' } : {}}>{c}</td>)}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </Section>
+        )}
+
+        {tab === 'investors' && (
+          <Section title="Investor Profiles" subtitle="Primary investor type and engagement parameters for the current pipeline.">
+            <div className="grid grid-cols-2 gap-4" style={{ maxWidth: 560 }}>
+              {[['Type', 'Family Office'], ['Ticket Size', '$10M – $100M'], ['Geography', 'US / UAE / Asia'], ['Focus', 'Hospitality / Infrastructure']].map(([k, v]) => (
+                <div key={k} className="tpg-card" style={{ padding: '18px 20px' }}>
+                  <p className="t-micro mb-2">{k}</p>
+                  <p style={{ fontFamily: 'var(--serif)', fontSize: '1.0625rem', color: 'var(--gold)', fontWeight: 400 }}>{v}</p>
+                </div>
+              ))}
+            </div>
+          </Section>
+        )}
+
+        {tab === 'intake' && (
+          <Section title="Deal Intake" subtitle="Submit a new project for capital structuring review.">
+            <form className="space-y-4" style={{ maxWidth: 480 }} onSubmit={e => e.preventDefault()}>
+              {[
+                ['Project Name', 'text', 'e.g. Coastal Resort, Phase II'],
+                ['Capital Needed', 'text', 'e.g. $50M'],
+                ['Asset Type', 'text', 'e.g. Hospitality, Mixed-Use'],
+              ].map(([label, type, ph]) => (
+                <div key={label}>
+                  <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-3)', marginBottom: 6 }}>{label}</label>
+                  <input type={type} placeholder={ph} className="tpg-input" />
+                </div>
+              ))}
+              <div>
+                <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-3)', marginBottom: 6 }}>Project Summary</label>
+                <textarea placeholder="Describe the project, location, and development program..." className="tpg-input" />
               </div>
-            </Section>
-          )}
+              <button type="submit" className="tpg-btn tpg-btn-primary">Submit for Review</button>
+            </form>
+          </Section>
+        )}
 
-          {tab === 'investors' && (
-            <Section title="Investor Profiles">
-              <div className="grid md:grid-cols-2 gap-4">
-                {[['Type','Family Office'],['Ticket Size','$10MM – $100MM'],['Geography','US / UAE / Asia'],['Focus','Hospitality / Infrastructure']].map(([k,v]) => (
-                  <div key={k} className="rounded-xl border border-white/10 bg-white/[0.03] p-5">
-                    <p className="text-xs text-white/45 uppercase tracking-wide mb-1">{k}</p>
-                    <p className="text-[#c8a96a] font-medium">{v}</p>
+        {tab === 'termsheet' && (
+          <Section title="Term Sheet Builder" subtitle="Generate a preliminary term sheet for lender or investor review.">
+            <form style={{ maxWidth: 480 }} onSubmit={e => e.preventDefault()}>
+              <div className="grid grid-cols-2 gap-4 mb-4">
+                {[
+                  ['Deal Type', 'Debt / Equity / Mezzanine'],
+                  ['Amount', 'e.g. $50,000,000'],
+                  ['Rate / IRR', 'e.g. 8.5% / 18% IRR'],
+                  ['Tenor', 'e.g. 36 months'],
+                ].map(([label, ph]) => (
+                  <div key={label}>
+                    <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-3)', marginBottom: 6 }}>{label}</label>
+                    <input placeholder={ph} className="tpg-input" />
                   </div>
                 ))}
               </div>
-            </Section>
-          )}
-
-          {tab === 'intake' && (
-            <Section title="Deal Intake Form">
-              <form className="space-y-4 max-w-lg" onSubmit={e => e.preventDefault()}>
-                <input placeholder="Project Name" className="input" />
-                <input placeholder="Capital Needed" className="input" />
-                <input placeholder="Asset Type" className="input" />
-                <textarea placeholder="Project Summary" className="input" style={{ minHeight: 100 }} />
-                <button type="submit" className="bg-[#c8a96a] text-black px-6 py-3 rounded-lg font-semibold hover:opacity-90">Submit</button>
-              </form>
-            </Section>
-          )}
-
-          {tab === 'termsheet' && (
-            <Section title="Term Sheet Builder">
-              <form className="max-w-lg space-y-4" onSubmit={e => e.preventDefault()}>
-                <div className="grid grid-cols-2 gap-4">
-                  <input placeholder="Deal Type (Debt/Equity)" className="input" />
-                  <input placeholder="Amount" className="input" />
-                  <input placeholder="Rate / IRR" className="input" />
-                  <input placeholder="Tenor" className="input" />
-                  <input placeholder="Collateral" className="input col-span-2" />
-                </div>
-                <button type="submit" className="mt-2 bg-[#c8a96a] text-black px-6 py-3 rounded-lg font-semibold hover:opacity-90">Generate Term Sheet</button>
-              </form>
-            </Section>
-          )}
-        </section>
-      </div>
+              <div className="mb-6">
+                <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-3)', marginBottom: 6 }}>Collateral</label>
+                <input placeholder="e.g. First lien on subject property" className="tpg-input" />
+              </div>
+              <button type="submit" className="tpg-btn tpg-btn-primary">Generate Term Sheet</button>
+            </form>
+          </Section>
+        )}
+      </section>
     </main>
   )
 }
 
-function Section({ title, children }) {
+function Section({ title, subtitle, children }) {
   return (
     <div>
-      <h3 className="text-xl font-semibold mb-5 text-white">{title}</h3>
+      <div className="mb-5">
+        <h2 className="t-heading mb-1">{title}</h2>
+        <p className="t-small">{subtitle}</p>
+      </div>
       {children}
     </div>
   )
