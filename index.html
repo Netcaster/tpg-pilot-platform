@@ -4,10 +4,26 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>tpg_pilot_platform</title>
+    <title>TPG Pilot Platform</title>
+    <script>
+      // Apply saved theme before React mounts to avoid flash
+      if (localStorage.getItem('tpg-theme') === 'day') {
+        document.documentElement.classList.add('day');
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
+    <!-- NaluAsk Neural Widget -->
+    <script
+      src="https://naluask.com/widget.js"
+      data-client-key="tpg_k_2026_tpg"
+      data-color="#c8a96a"
+      data-position="bottom-right"
+      data-icon="neural"
+      data-lang="en"
+      async>
+    </script>
   </body>
 </html>

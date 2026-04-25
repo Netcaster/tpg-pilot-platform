@@ -3,7 +3,9 @@ import { useNavigate, useLocation } from 'react-router-dom'
 import {
   Globe2, Flag, Landmark, User, FileText,
   Puzzle, HeartHandshake, BarChart3, Settings, Leaf,
+  Sun, Moon,
 } from 'lucide-react'
+import { useTheme } from '../hooks/useTheme'
 
 const BLUE = '#4A90FF'
 
@@ -29,6 +31,7 @@ const metrics = [
 export default function Sidebar() {
   const navigate = useNavigate()
   const { pathname } = useLocation()
+  const { isDark, toggle } = useTheme()
 
   return (
     <aside className="relative z-30 border-r border-white/10 bg-black/20 px-5 py-6 backdrop-blur flex flex-col justify-between" style={{ width: 280 }}>
@@ -88,6 +91,19 @@ export default function Sidebar() {
           </p>
           <p className="mt-1 text-xs text-white/35">All systems active</p>
         </div>
+        <button
+          onClick={toggle}
+          className="flex w-full items-center gap-3 rounded-xl border px-4 py-3 text-sm font-medium transition hover:opacity-80"
+          style={{
+            borderColor: 'rgba(200,169,106,0.35)',
+            background: 'rgba(200,169,106,0.10)',
+            color: '#c8a96a',
+          }}
+        >
+          {isDark ? <Sun size={16} /> : <Moon size={16} />}
+          {isDark ? 'Switch to Day Mode' : 'Switch to Night Mode'}
+        </button>
+
         <p className="text-xs text-white/30 px-1">© True Perspective Global</p>
       </div>
     </aside>
