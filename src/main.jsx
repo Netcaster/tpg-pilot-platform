@@ -62,7 +62,7 @@ function Sidebar({ active = 'global' }) {
   return (
     <aside className="tpg-sidebar">
       <div>
-        <img className="tpg-logo" src="/images/tpg-logo.png" alt="True Perspective Global" />
+        <img className="tpg-logo" src="/tpg-logo.png" alt="TPG" />
         <nav className="tpg-nav">
           {navItems.map(([label, Icon, path], index) => {
             const isActive =
