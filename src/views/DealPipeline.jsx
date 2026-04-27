@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Lock, Search, FileText, CalendarDays, ChevronRight, Filter, ShieldCheck, CheckCircle2, AlertTriangle, Clock3 } from 'lucide-react'
+import { Lock, Search, FileText, CalendarDays, ChevronRight, Filter, ShieldCheck, CheckCircle2, AlertTriangle, Clock3, Menu } from 'lucide-react'
 import Sidebar from '../components/Sidebar'
 
 const deals = [
@@ -68,6 +68,7 @@ export default function DealPipeline() {
   const [selected, setSelected] = useState(deals[0])
   const [query, setQuery]       = useState('')
   const [category, setCategory] = useState('All')
+  const [sidebarOpen, setSidebarOpen] = useState(false)
   const navigate = useNavigate()
 
   const filtered = useMemo(() => deals.filter(d => {
@@ -78,25 +79,30 @@ export default function DealPipeline() {
 
   return (
     <main className="flex min-h-screen" style={{ background: 'var(--page-bg)' }}>
-      <Sidebar />
+      <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
-      <section className="flex-1 px-10 py-8 overflow-auto">
+      <section className="flex-1 overflow-auto tpg-views-content" style={{ padding: '32px 40px' }}>
         {/* Header */}
-        <header className="flex items-start justify-between mb-8">
-          <div style={{ maxWidth: 520 }}>
-            <p className="t-label mb-3">Deal Pipeline</p>
-            <h1 className="t-display mb-3">TPG Deal Tracker</h1>
-            <p className="t-body">
-              Board-ready visibility across material contracts, capital parameters, and deal status for lenders, investors, and executive review.
-            </p>
+        <header className="flex items-start justify-between mb-8 gap-3">
+          <div style={{ display: 'flex', alignItems: 'flex-start', gap: 10 }}>
+            <button className="tpg-ham" style={{ marginTop: 4 }} onClick={() => setSidebarOpen(true)}>
+              <Menu size={18} />
+            </button>
+            <div style={{ maxWidth: 520 }}>
+              <p className="t-label mb-3">Deal Pipeline</p>
+              <h1 className="t-display mb-3">TPG Deal Tracker</h1>
+              <p className="t-body">
+                Board-ready visibility across material contracts, capital parameters, and deal status for lenders, investors, and executive review.
+              </p>
+            </div>
           </div>
-          <button className="tpg-btn flex items-center gap-2 mt-1">
+          <button className="tpg-btn tpg-restrict-hide flex items-center gap-2 mt-1">
             <Lock size={13} /> Restricted Access
           </button>
         </header>
 
         {/* Stats */}
-        <div className="grid gap-4 mb-8" style={{ gridTemplateColumns: 'repeat(4, 1fr)' }}>
+        <div className="deal-stats-resp mb-8">
           {stats.map(([label, value]) => (
             <div key={label} className="tpg-card" style={{ padding: '20px 24px' }}>
               <p className="t-micro mb-2" style={{ letterSpacing: '0.08em', textTransform: 'uppercase' }}>{label}</p>
@@ -133,7 +139,7 @@ export default function DealPipeline() {
           </div>
         </div>
 
-        <div className="grid gap-5" style={{ gridTemplateColumns: '1fr 380px' }}>
+        <div className="deal-layout-resp">
           {/* Table */}
           <div className="tpg-card" style={{ padding: 0, overflow: 'hidden' }}>
             <div style={{ padding: '16px 20px', borderBottom: '1px solid var(--border)' }}>

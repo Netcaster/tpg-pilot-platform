@@ -119,3 +119,56 @@ html.day .contract{background:rgba(255,255,255,.50);border-color:rgba(10,22,60,.
 html.day .contract span{color:rgba(10,22,60,.35)}
 
 @media(max-width:1200px){.tpg-page{grid-template-columns:240px 1fr}.pilot-grid{grid-template-columns:repeat(3,1fr)}.deals-layout{grid-template-columns:1fr}.tpg-footer{display:none}.world-map{height:620px}.map-stage{height:580px}}
+
+/* ── Responsive & Mobile System ── */
+
+/* Pilot grid — desktop default */
+.pilot-grid-resp{display:grid;gap:10px;grid-template-columns:repeat(5,1fr)}
+
+/* Deal views responsive grids */
+.deal-stats-resp{display:grid;gap:16px;margin:28px 0;grid-template-columns:repeat(4,1fr)}
+.deal-layout-resp{display:grid;gap:22px;grid-template-columns:1fr 380px}
+
+/* Hamburger — hidden on desktop */
+.tpg-ham{display:none;align-items:center;justify-content:center;background:rgba(6,9,20,.85);border:1px solid rgba(255,255,255,.18);border-radius:8px;color:rgba(200,215,235,.88);cursor:pointer;padding:7px 9px;flex-shrink:0}
+
+/* Mobile sidebar backdrop */
+.tpg-sidebar-backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,.62);z-index:49;cursor:pointer}
+
+/* Close button inside sidebar — hidden on desktop */
+.tpg-sidebar-close-btn{display:none;align-items:center;justify-content:center;position:absolute;right:14px;top:16px;background:none;border:none;color:rgba(255,255,255,.40);cursor:pointer;padding:4px;z-index:1}
+
+/* ── Tablet (1024–1199px) — 3-column pilot grid ── */
+@media(max-width:1199px){
+  .pilot-grid-resp{grid-template-columns:repeat(3,1fr)}
+  .deal-layout-resp{grid-template-columns:1fr}
+}
+
+/* ── Mobile (<768px) ── */
+@media(max-width:767px){
+  /* Hamburger visible */
+  .tpg-ham{display:flex}
+
+  /* Sidebar as slide-in drawer */
+  .tpg-sidebar-backdrop.is-open{display:block}
+  .tpg-sidebar-drawer{position:fixed!important;left:0;top:0;height:100vh;z-index:50;transform:translateX(-100%);transition:transform .25s ease;overflow-y:auto}
+  .tpg-sidebar-drawer.is-open{transform:translateX(0)}
+  .tpg-sidebar-close-btn{display:flex!important}
+
+  /* Grids collapse */
+  .pilot-grid-resp{grid-template-columns:repeat(2,1fr)}
+  .deal-stats-resp{grid-template-columns:repeat(2,1fr)}
+  .deal-layout-resp{grid-template-columns:1fr}
+
+  /* Map overlay padding reduction */
+  .tpg-map-overlay-pad{padding:48px 16px 28px!important}
+
+  /* View content padding */
+  .tpg-views-content{padding:20px 16px!important}
+
+  /* Hide footer bar on mobile */
+  .tpg-footer-hide{display:none!important}
+
+  /* Hide Restricted Access badge on mobile */
+  .tpg-restrict-hide{display:none!important}
+}

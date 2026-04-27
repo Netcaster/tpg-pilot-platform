@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Lock } from 'lucide-react'
+import { Lock, Menu } from 'lucide-react'
 import Sidebar from '../components/Sidebar'
 
 const tabs = [
@@ -11,22 +11,28 @@ const tabs = [
 
 export default function InvestorEngine() {
   const [tab, setTab] = useState('pipeline')
+  const [sidebarOpen, setSidebarOpen] = useState(false)
 
   return (
     <main className="flex min-h-screen" style={{ background: 'var(--page-bg)' }}>
-      <Sidebar />
+      <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
-      <section className="flex-1 px-10 py-8 overflow-auto">
+      <section className="flex-1 overflow-auto tpg-views-content" style={{ padding: '32px 40px' }}>
         {/* Header */}
-        <header className="flex items-start justify-between mb-8">
-          <div style={{ maxWidth: 520 }}>
-            <p className="t-label mb-3">Investor Room</p>
-            <h1 className="t-display mb-3">Investor Engine</h1>
-            <p className="t-body">
-              Capital pipeline management, investor profiling, deal intake, and term sheet generation for institutional engagements.
-            </p>
+        <header className="flex items-start justify-between mb-8 gap-3">
+          <div style={{ display: 'flex', alignItems: 'flex-start', gap: 10 }}>
+            <button className="tpg-ham" style={{ marginTop: 4 }} onClick={() => setSidebarOpen(true)}>
+              <Menu size={18} />
+            </button>
+            <div style={{ maxWidth: 520 }}>
+              <p className="t-label mb-3">Investor Room</p>
+              <h1 className="t-display mb-3">Investor Engine</h1>
+              <p className="t-body">
+                Capital pipeline management, investor profiling, deal intake, and term sheet generation for institutional engagements.
+              </p>
+            </div>
           </div>
-          <button className="tpg-btn flex items-center gap-2 mt-1">
+          <button className="tpg-btn tpg-restrict-hide flex items-center gap-2 mt-1">
             <Lock size={13} /> Restricted Access
           </button>
         </header>

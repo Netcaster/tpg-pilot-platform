@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom'
 import {
   Globe2, Flag, Landmark, User, FileText,
   Puzzle, HeartHandshake, BarChart3, Settings,
-  Sun, Moon, Leaf,
+  Sun, Moon, Leaf, X,
 } from 'lucide-react'
 import { useTheme } from '../hooks/useTheme'
 
@@ -26,21 +26,35 @@ const metrics = [
   [Leaf,      'ESG FOCUS',         '100%', 'Sustainability Driven'],
 ]
 
-export default function Sidebar() {
+export default function Sidebar({ isOpen = false, onClose }) {
   const navigate      = useNavigate()
   const { pathname }  = useLocation()
   const { isDark, toggle } = useTheme()
 
   return (
-    <aside style={{
-      width: 272,
-      minHeight: '100vh',
-      background: 'rgba(6,9,20,0.96)',
-      borderRight: '1px solid rgba(255,255,255,0.08)',
-      display: 'flex',
-      flexDirection: 'column',
-      flexShrink: 0,
-    }}>
+    <>
+      {/* Mobile backdrop */}
+      <div
+        className={`tpg-sidebar-backdrop${isOpen ? ' is-open' : ''}`}
+        onClick={onClose}
+      />
+      <aside
+        className={`tpg-sidebar-drawer${isOpen ? ' is-open' : ''}`}
+        style={{
+          width: 272,
+          minHeight: '100vh',
+          background: 'rgba(6,9,20,0.96)',
+          borderRight: '1px solid rgba(255,255,255,0.08)',
+          display: 'flex',
+          flexDirection: 'column',
+          flexShrink: 0,
+          position: 'relative',
+        }}
+      >
+      {/* Mobile close button */}
+      <button className="tpg-sidebar-close-btn" onClick={onClose}>
+        <X size={16} />
+      </button>
       {/* Logo */}
       <div style={{ padding: '24px 20px 20px' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 4 }}>
@@ -119,6 +133,7 @@ export default function Sidebar() {
           {isDark ? 'Day Mode' : 'Night Mode'}
         </button>
       </div>
-    </aside>
+      </aside>
+    </>
   )
 }

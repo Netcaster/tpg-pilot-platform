@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useNavigate } from 'react-router-dom'
-import { Lock, ChevronRight, X, MapPin } from 'lucide-react'
+import { Lock, ChevronRight, X, MapPin, Menu } from 'lucide-react'
 import Sidebar from '../components/Sidebar'
 
 const featuredPilots = [
@@ -49,11 +49,12 @@ const regions = [
 
 export default function GlobalPortfolio() {
   const [activeRegion, setActiveRegion] = useState(null)
+  const [sidebarOpen, setSidebarOpen] = useState(false)
   const navigate = useNavigate()
 
   return (
     <div className="flex min-h-screen" style={{ background: '#0a0e1a' }}>
-      <Sidebar />
+      <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
       {/* Content — NO horizontal padding so map goes edge-to-edge */}
       <div className="flex-1 flex flex-col overflow-hidden">
@@ -114,20 +115,27 @@ export default function GlobalPortfolio() {
           ))}
 
           {/* Overlay: title + button */}
-          <div className="absolute inset-0 flex flex-col justify-start" style={{ padding: '28px 32px' }}>
-            <div className="flex items-start justify-between">
-              <div>
-                <h1 style={{ fontFamily: 'var(--serif)', fontSize: 'clamp(1.5rem,2.8vw,2.4rem)', fontWeight: 400, color: '#ffffff', letterSpacing: '-0.01em', lineHeight: 1.15, marginBottom: 6 }}>
-                  TPG_PILOT Global Portfolio
-                </h1>
-                <p style={{ fontSize: '1rem', color: '#7DB4FF', marginBottom: 4 }}>
-                  Institutional Growth, Capital Strategy &amp; Web3 Commercialization—Unified
-                </p>
-                <p style={{ fontSize: '0.875rem', color: 'rgba(180,200,230,0.75)' }}>
-                  Select a region to explore active pilots and unlock sustainable value worldwide.
-                </p>
+          <div className="absolute inset-0 flex flex-col justify-start tpg-map-overlay-pad" style={{ padding: '28px 32px' }}>
+            <div className="flex items-start justify-between gap-3">
+              <div style={{ display: 'flex', alignItems: 'flex-start', gap: 12 }}>
+                {/* Mobile hamburger */}
+                <button className="tpg-ham" style={{ marginTop: 6 }} onClick={() => setSidebarOpen(true)}>
+                  <Menu size={18} />
+                </button>
+                <div>
+                  <h1 style={{ fontFamily: 'var(--serif)', fontSize: 'clamp(1.25rem,2.8vw,2.4rem)', fontWeight: 400, color: '#ffffff', letterSpacing: '-0.01em', lineHeight: 1.15, marginBottom: 6 }}>
+                    TPG_PILOT Global Portfolio
+                  </h1>
+                  <p style={{ fontSize: 'clamp(0.8rem,1.5vw,1rem)', color: '#7DB4FF', marginBottom: 4 }}>
+                    Institutional Growth, Capital Strategy &amp; Web3 Commercialization—Unified
+                  </p>
+                  <p style={{ fontSize: '0.875rem', color: 'rgba(180,200,230,0.75)' }}>
+                    Select a region to explore active pilots and unlock sustainable value worldwide.
+                  </p>
+                </div>
               </div>
               <button
+                className="tpg-restrict-hide"
                 style={{
                   display: 'flex', alignItems: 'center', gap: 8,
                   padding: '10px 20px', borderRadius: 8,
@@ -216,7 +224,7 @@ export default function GlobalPortfolio() {
               </button>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5,1fr)', gap: 10 }}>
+            <div className="pilot-grid-resp">
               {featuredPilots.map(p => (
                 <button
                   key={p.name}
@@ -242,7 +250,7 @@ export default function GlobalPortfolio() {
           </div>
 
           {/* Footer */}
-          <div style={{ display: 'flex', justifyContent: 'space-between', padding: '12px 28px', borderTop: '1px solid rgba(255,255,255,0.07)' }}>
+          <div className="tpg-footer-hide" style={{ display: 'flex', justifyContent: 'space-between', padding: '12px 28px', borderTop: '1px solid rgba(255,255,255,0.07)' }}>
             <p style={{ fontSize: '0.6875rem', color: 'rgba(180,200,230,0.45)' }}>© 2025 True Perspective Global. All Rights Reserved.</p>
             <div style={{ display: 'flex', gap: 20 }}>
               {['Capital Procurement', "Owner's Representation", 'ESG Execution', 'Engagement Ecosystems', 'Social Good', 'Digital Footprint'].map((t, i, arr) => (
