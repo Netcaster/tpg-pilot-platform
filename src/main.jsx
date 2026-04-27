@@ -270,7 +270,7 @@ function DealPipeline() {
         <div className="deals-layout">
           <section className="deal-table">
             <h3>Active Deal Pipeline</h3>
-            <table>
+            <div className="deal-table-wrap"><table>
               <thead>
                 <tr><th>Deal</th><th>Category</th><th>Region</th><th>Value</th><th>Stage</th><th>Status</th><th>Updated</th></tr>
               </thead>
@@ -284,7 +284,7 @@ function DealPipeline() {
                   </tr>
                 ))}
               </tbody>
-            </table>
+            </table></div>
           </section>
 
           <aside className="deal-detail">
