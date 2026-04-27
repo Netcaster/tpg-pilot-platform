@@ -56,15 +56,12 @@ export default function Sidebar({ isOpen = false, onClose }) {
         <X size={16} />
       </button>
       {/* Logo */}
-      <div style={{ padding: '24px 20px 20px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 4 }}>
-          <Globe2 size={28} strokeWidth={1.2} style={{ color: '#4A90FF', flexShrink: 0 }} />
-          <div>
-            <p style={{ fontSize: '0.6875rem', fontWeight: 400, fontStyle: 'italic', color: 'rgba(200,215,235,0.7)', lineHeight: 1.3, fontFamily: 'var(--serif)' }}>
-              true<br />perspective<br />global
-            </p>
-          </div>
-        </div>
+      <div style={{ padding: '20px 20px 16px' }}>
+        <img
+          src="/tpg-logo.png"
+          alt="TPG"
+          style={{ width: 100, display: 'block', opacity: 0.95 }}
+        />
       </div>
 
       {/* Nav */}

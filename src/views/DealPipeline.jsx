@@ -78,10 +78,10 @@ export default function DealPipeline() {
   }), [query, category])
 
   return (
-    <main className="flex min-h-screen" style={{ background: 'var(--page-bg)' }}>
+    <main className="flex min-h-screen" style={{ background: 'var(--page-bg)', overflow: 'hidden' }}>
       <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
-      <section className="flex-1 overflow-auto tpg-views-content" style={{ padding: '32px 40px' }}>
+      <section className="flex-1 overflow-auto tpg-views-content" style={{ padding: '32px 40px', minWidth: 0 }}>
         {/* Header */}
         <header className="flex items-start justify-between mb-8 gap-3">
           <div style={{ display: 'flex', alignItems: 'flex-start', gap: 10 }}>

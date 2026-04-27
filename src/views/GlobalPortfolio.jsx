@@ -53,11 +53,11 @@ export default function GlobalPortfolio() {
   const navigate = useNavigate()
 
   return (
-    <div className="flex min-h-screen" style={{ background: '#0a0e1a' }}>
+    <div className="flex min-h-screen" style={{ background: '#0a0e1a', overflow: 'hidden' }}>
       <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
       {/* Content — NO horizontal padding so map goes edge-to-edge */}
-      <div className="flex-1 flex flex-col overflow-hidden">
+      <div className="flex-1 flex flex-col overflow-hidden" style={{ minWidth: 0 }}>
 
         {/* ── MAP (fills most of viewport) ── */}
         <section className="relative flex-1" style={{ minHeight: '78vh', overflow: 'hidden' }}>
