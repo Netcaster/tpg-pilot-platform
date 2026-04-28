@@ -51,7 +51,7 @@ const regionData = {
     ],
   },
   'South America': {
-    label: 'Central America', count: 3, side: 'right',
+    label: 'South America', count: 3, side: 'right',
     pilots: [
       { name: 'Cóbano Preserve',     country: 'Costa Rica',        type: 'ESG Luxury Eco-Resort', image: '/images/pilots/cobano-preserve-thumb.jpg',  path: '/pilot/cobano-preserve' },
       { name: 'Antigua Master Plan', country: 'Antigua & Barbuda', type: 'SEZ Capital Platform',  image: '/images/pilots/antigua-master-plan.jpg',    path: '/pilot/antigua-master-plan' },

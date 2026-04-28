@@ -21,7 +21,7 @@ body{margin:0;overflow-x:hidden;max-width:100vw;background:var(--bg);color:var(-
 .tpg-header h2{margin:8px 0 0;color:var(--blue-soft);font-size:20px;font-weight:400}
 .tpg-header p{margin:10px 0 0;color:var(--muted);font-size:16px}
 .restricted{display:flex;align-items:center;gap:12px;color:var(--blue-soft);border:1px solid var(--border);background:rgba(0,8,20,.42);border-radius:7px;padding:15px 24px;font-size:15px;cursor:pointer;white-space:nowrap}
-.map-stage{position:relative;height:640px;margin-top:6px;overflow:hidden}
+.map-stage{position:relative;height:640px;margin-top:6px;overflow:hidden;isolation:isolate}
 .world-map{position:absolute;inset:-34px -28px 0 -28px;width:calc(100% + 56px);height:690px;object-fit:cover;opacity:.86;filter:contrast(1.1) brightness(1.05)}
 .map-vignette{position:absolute;inset:-34px -28px 0 -28px;background:radial-gradient(circle at 48% 44%,transparent 0%,rgba(2,7,18,.12) 42%,rgba(2,7,18,.88) 100%),linear-gradient(180deg,rgba(2,7,18,.08),rgba(2,7,18,.42))}
 .flow-lines{position:absolute;inset:0;width:100%;height:100%}
