@@ -30,28 +30,28 @@ const pilots = [
 
 const regionData = {
   'North America': {
-    label: 'North America', count: 5,
+    label: 'North America', count: 5, side: 'right',
     pilots: [
       { name: 'R.I.S.E. National Deployment', country: 'United States',      type: 'Social Infrastructure Platform', image: '/images/pilots/cobano-preserve.jpg',    path: '/deals' },
       { name: 'HTES U.S. Expansion',          country: 'United States / EU', type: 'Enterprise & Technology',        image: '/images/pilots/antigua-master-plan.jpg', path: '/deals' },
     ],
   },
   'Europe': {
-    label: 'Europe', count: 3,
+    label: 'Europe', count: 3, side: 'right',
     pilots: [
       { name: 'Marbella Club',      country: 'Spain',          type: 'Luxury Coastal Resort',       image: '/images/pilots/marbella-club.jpg',       path: '/deals' },
       { name: 'HTES EU Hub',        country: 'Europe',         type: 'Enterprise Technology Hub',   image: '/images/pilots/hokkaido-resort.jpg',     path: '/deals' },
     ],
   },
   'Asia': {
-    label: 'Asia Pacific', count: 4,
+    label: 'Asia Pacific', count: 4, side: 'left',
     pilots: [
       { name: 'Hokkaido Resort Plan',   country: 'Japan',    type: 'Mountain Resort & Convention', image: '/images/pilots/hokkaido-resort.jpg',  path: '/pilot/hokkaido-resort' },
       { name: 'Phuket Wellness Resort', country: 'Thailand', type: 'Luxury Wellness Resort',       image: '/images/pilots/phuket-wellness.jpg',  path: '/deals' },
     ],
   },
   'South America': {
-    label: 'Central America', count: 3,
+    label: 'Central America', count: 3, side: 'right',
     pilots: [
       { name: 'Cóbano Preserve',     country: 'Costa Rica',        type: 'ESG Luxury Eco-Resort', image: '/images/pilots/cobano-preserve-thumb.jpg',  path: '/pilot/cobano-preserve' },
       { name: 'Antigua Master Plan', country: 'Antigua & Barbuda', type: 'SEZ Capital Platform',  image: '/images/pilots/antigua-master-plan.jpg',    path: '/pilot/antigua-master-plan' },
@@ -59,13 +59,13 @@ const regionData = {
     ],
   },
   'Africa': {
-    label: 'Africa', count: 2,
+    label: 'Africa', count: 2, side: 'right',
     pilots: [
       { name: 'West Africa Gateway',  country: 'Ghana / Nigeria', type: 'Infrastructure & ESG Development', image: '/images/pilots/cobano-preserve.jpg',    path: '/deals' },
     ],
   },
   'Australia': {
-    label: 'Australia / Pacific', count: 2,
+    label: 'Australia / Pacific', count: 2, side: 'left',
     pilots: [
       { name: 'Pacific Rim Pilot', country: 'Australia', type: 'Luxury Resort Development', image: '/images/pilots/phuket-wellness.jpg', path: '/deals' },
     ],
@@ -173,10 +173,10 @@ function GlobalPortfolio() {
           <FlowLines />
           <RegionNode name="North America" sub="5 Active Pilots" x="9.5%"  y="24%"   active={activeRegion} onHover={setActiveRegion} />
           <RegionNode name="Europe"        sub="3 Active Pilots" x="42%"   y="24.5%" active={activeRegion} onHover={setActiveRegion} />
-          <RegionNode name="Asia"          sub="4 Active Pilots" x="85.5%" y="35%"   active={activeRegion} onHover={setActiveRegion} />
+          <RegionNode name="Asia"          sub="4 Active Pilots" x="76%"   y="26%"   active={activeRegion} onHover={setActiveRegion} />
           <RegionNode name="South America" sub="2 Active Pilots" x="27.2%" y="69%"   active={activeRegion} onHover={setActiveRegion} />
           <RegionNode name="Africa"        sub="2 Active Pilots" x="46.5%" y="69.5%" active={activeRegion} onHover={setActiveRegion} />
-          <RegionNode name="Australia"     sub="2 Active Pilots" x="86.3%" y="75.5%" active={activeRegion} onHover={setActiveRegion} />
+          <RegionNode name="Australia"     sub="2 Active Pilots" x="80%"   y="72%"   active={activeRegion} onHover={setActiveRegion} />
           <div className="central-highlight" />
           {activeRegion && (
             <RegionPanel
@@ -247,8 +247,11 @@ function RegionNode({ name, sub, x, y, active, onHover }) {
 function RegionPanel({ region, onClose }) {
   const navigate = useNavigate();
   if (!region) return null;
+  const posStyle = region.side === 'left'
+    ? { left: '2%', right: 'auto' }
+    : { right: '2%', left: 'auto' };
   return (
-    <div className="region-panel">
+    <div className="region-panel" style={posStyle}>
       <button className="close" onClick={onClose}><X size={20} /></button>
       <h3>{region.label}</h3>
       <p>{region.count} Active Pilots</p>
