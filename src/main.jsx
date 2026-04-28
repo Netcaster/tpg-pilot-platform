@@ -179,7 +179,7 @@ function GlobalPortfolio() {
           <RegionNode name="South America" sub="2 Active Pilots" x="27.2%" y="69%"   active={activeRegion} onHover={setActiveRegion} />
           <RegionNode name="Africa"        sub="2 Active Pilots" x="46.5%" y="69.5%" active={activeRegion} onHover={setActiveRegion} />
           <RegionNode name="Australia"     sub="2 Active Pilots" x="80%"   y="72%"   active={activeRegion} onHover={setActiveRegion} />
-          <div className="central-highlight" />
+
           {activeRegion && (
             <RegionPanel
               key={activeRegion}
