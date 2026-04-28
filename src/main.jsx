@@ -6,6 +6,8 @@ import {
   ChevronRight, X, MapPin, Search, FileText as FileText2, CalendarDays, CheckCircle2, Clock3, Sun, Moon,
 } from 'lucide-react';
 import './styles.css';
+import CostaRicaPilot from './pilots/CostaRicaPilot';
+import HokkaidoPilot from './pilots/HokkaidoPilot';
 
 // ── Theme ──────────────────────────────────────────────────────────────────
 function useTheme() {
@@ -475,9 +477,9 @@ function App() {
         <Route path="/"                        element={<GlobalPortfolio />} />
         <Route path="/deals"                   element={<DealPipeline />} />
         <Route path="/investors"               element={<InvestorEngine />} />
-        <Route path="/pilot/hokkaido-resort"   element={<PilotPage title="Hokkaido Resort Plan"  sub="Japan Pilot Micro-Site" />} />
-        <Route path="/pilot/antigua-master-plan" element={<PilotPage title="Antigua Master Plan" sub="Antigua & Barbuda Pilot Micro-Site" />} />
-        <Route path="/pilot/cobano-preserve"   element={<PilotPage title="Cóbano Preserve"       sub="Costa Rica Pilot Micro-Site" />} />
+        <Route path="/pilot/hokkaido-resort"     element={<HokkaidoPilot />} />
+        <Route path="/pilot/antigua-master-plan" element={<HokkaidoPilot />} />
+        <Route path="/pilot/cobano-preserve"     element={<CostaRicaPilot />} />
         <Route path="*"                        element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>
