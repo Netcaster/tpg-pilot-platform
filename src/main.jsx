@@ -217,24 +217,7 @@ function GlobalPortfolio() {
   );
 }
 
-function FlowLines() {
-  return (
-    <svg className="flow-lines" viewBox="0 0 1200 620" preserveAspectRatio="none">
-      {/* North America → Europe */}
-      <path d="M114 149 Q309 90 504 152" />
-      {/* Europe → Asia */}
-      <path d="M504 152 Q710 110 912 161" />
-      {/* North America → South America */}
-      <path d="M114 149 Q170 290 326 428" />
-      {/* South America → Africa */}
-      <path d="M326 428 Q442 390 558 431" />
-      {/* Africa → Europe */}
-      <path d="M558 431 Q535 285 504 152" />
-      {/* Asia → Australia */}
-      <path d="M912 161 Q940 300 960 446" />
-    </svg>
-  );
-}
+function FlowLines() { return null; }
 
 function RegionNode({ name, sub, x, y, active, onHover }) {
   const isActive = active === name;
