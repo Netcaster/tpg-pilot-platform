@@ -28,11 +28,49 @@ const pilots = [
   { name: 'Phuket Wellness Resort',country: 'Thailand',          value: '$180M+ Development',  image: '/images/pilots/phuket-wellness.jpg',     path: '/pilot/phuket-wellness' },
 ];
 
-const regionPilots = [
-  { name: 'Cóbano Preserve',   country: 'Costa Rica', type: 'ESG Luxury Eco-Resort', image: '/images/pilots/cobano-preserve-thumb.jpg',  path: '/pilot/cobano-preserve' },
-  { name: 'Roatán Bay Resort', country: 'Honduras',   type: 'Luxury Island Resort',  image: '/images/pilots/roatan-bay-thumb.jpg',        path: '/pilot/roatan-bay' },
-  { name: 'Ambergris Caye',    country: 'Belize',     type: 'Oceanfront Residences', image: '/images/pilots/ambergris-caye-thumb.jpg',    path: '/pilot/ambergris-caye' },
-];
+const regionData = {
+  'North America': {
+    label: 'North America', count: 5,
+    pilots: [
+      { name: 'R.I.S.E. National Deployment', country: 'United States',      type: 'Social Infrastructure Platform', image: '/images/pilots/cobano-preserve.jpg',    path: '/deals' },
+      { name: 'HTES U.S. Expansion',          country: 'United States / EU', type: 'Enterprise & Technology',        image: '/images/pilots/antigua-master-plan.jpg', path: '/deals' },
+    ],
+  },
+  'Europe': {
+    label: 'Europe', count: 3,
+    pilots: [
+      { name: 'Marbella Club',      country: 'Spain',          type: 'Luxury Coastal Resort',       image: '/images/pilots/marbella-club.jpg',       path: '/deals' },
+      { name: 'HTES EU Hub',        country: 'Europe',         type: 'Enterprise Technology Hub',   image: '/images/pilots/hokkaido-resort.jpg',     path: '/deals' },
+    ],
+  },
+  'Asia': {
+    label: 'Asia Pacific', count: 4,
+    pilots: [
+      { name: 'Hokkaido Resort Plan',   country: 'Japan',    type: 'Mountain Resort & Convention', image: '/images/pilots/hokkaido-resort.jpg',  path: '/pilot/hokkaido-resort' },
+      { name: 'Phuket Wellness Resort', country: 'Thailand', type: 'Luxury Wellness Resort',       image: '/images/pilots/phuket-wellness.jpg',  path: '/deals' },
+    ],
+  },
+  'South America': {
+    label: 'Central America', count: 3,
+    pilots: [
+      { name: 'Cóbano Preserve',     country: 'Costa Rica',        type: 'ESG Luxury Eco-Resort', image: '/images/pilots/cobano-preserve-thumb.jpg',  path: '/pilot/cobano-preserve' },
+      { name: 'Antigua Master Plan', country: 'Antigua & Barbuda', type: 'SEZ Capital Platform',  image: '/images/pilots/antigua-master-plan.jpg',    path: '/pilot/antigua-master-plan' },
+      { name: 'Roatán Bay Resort',   country: 'Honduras',          type: 'Luxury Island Resort',  image: '/images/pilots/roatan-bay-thumb.jpg',        path: '/deals' },
+    ],
+  },
+  'Africa': {
+    label: 'Africa', count: 2,
+    pilots: [
+      { name: 'West Africa Gateway',  country: 'Ghana / Nigeria', type: 'Infrastructure & ESG Development', image: '/images/pilots/cobano-preserve.jpg',    path: '/deals' },
+    ],
+  },
+  'Australia': {
+    label: 'Australia / Pacific', count: 2,
+    pilots: [
+      { name: 'Pacific Rim Pilot', country: 'Australia', type: 'Luxury Resort Development', image: '/images/pilots/phuket-wellness.jpg', path: '/deals' },
+    ],
+  },
+};
 
 const navItems = [
   ['Global Execution',      Globe2,        '/'],
@@ -112,7 +150,7 @@ function Metric({ icon: Icon, label, value, sub }) {
 // ── Global Portfolio ───────────────────────────────────────────────────────
 function GlobalPortfolio() {
   const navigate = useNavigate();
-  const [panelOpen, setPanelOpen] = React.useState(true);
+  const [activeRegion, setActiveRegion] = React.useState(null);
 
   return (
     <main className="tpg-page">
@@ -122,7 +160,7 @@ function GlobalPortfolio() {
           <div>
             <h1>TPG_PILOT Global Portfolio</h1>
             <h2>Institutional Growth, Capital Strategy &amp; Web3 Commercialization—Unified</h2>
-            <p>Select a region to explore active pilots and unlock sustainable value worldwide.</p>
+            <p>Hover a region to explore active pilots and unlock sustainable value worldwide.</p>
           </div>
           <button className="restricted" onClick={() => navigate('/investors')}>
             <Lock size={18} /> Restricted Access
@@ -133,14 +171,20 @@ function GlobalPortfolio() {
           <img src="/images/world-map-night.jpg" alt="World map" className="world-map" />
           <div className="map-vignette" />
           <FlowLines />
-          <RegionNode name="North America" sub="5 Active Pilots" x="9.5%"  y="24%"   />
-          <RegionNode name="Europe"        sub="3 Active Pilots" x="42%"   y="24.5%" />
-          <RegionNode name="Asia"          sub="4 Active Pilots" x="85.5%" y="35%"   />
-          <RegionNode name="South America" sub="2 Active Pilots" x="27.2%" y="69%"   />
-          <RegionNode name="Africa"        sub="2 Active Pilots" x="46.5%" y="69.5%" />
-          <RegionNode name="Australia"     sub="2 Active Pilots" x="86.3%" y="75.5%" />
+          <RegionNode name="North America" sub="5 Active Pilots" x="9.5%"  y="24%"   active={activeRegion} onHover={setActiveRegion} />
+          <RegionNode name="Europe"        sub="3 Active Pilots" x="42%"   y="24.5%" active={activeRegion} onHover={setActiveRegion} />
+          <RegionNode name="Asia"          sub="4 Active Pilots" x="85.5%" y="35%"   active={activeRegion} onHover={setActiveRegion} />
+          <RegionNode name="South America" sub="2 Active Pilots" x="27.2%" y="69%"   active={activeRegion} onHover={setActiveRegion} />
+          <RegionNode name="Africa"        sub="2 Active Pilots" x="46.5%" y="69.5%" active={activeRegion} onHover={setActiveRegion} />
+          <RegionNode name="Australia"     sub="2 Active Pilots" x="86.3%" y="75.5%" active={activeRegion} onHover={setActiveRegion} />
           <div className="central-highlight" />
-          {panelOpen && <RegionPanel onClose={() => setPanelOpen(false)} />}
+          {activeRegion && (
+            <RegionPanel
+              key={activeRegion}
+              region={regionData[activeRegion]}
+              onClose={() => setActiveRegion(null)}
+            />
+          )}
         </section>
 
         <section className="featured-wrap">
@@ -182,9 +226,15 @@ function FlowLines() {
   );
 }
 
-function RegionNode({ name, sub, x, y }) {
+function RegionNode({ name, sub, x, y, active, onHover }) {
+  const isActive = active === name;
   return (
-    <button className="region-node" style={{ left: x, top: y }}>
+    <button
+      className={`region-node${isActive ? ' region-node--active' : ''}`}
+      style={{ left: x, top: y }}
+      onMouseEnter={() => onHover(name)}
+      onClick={() => onHover(name)}
+    >
       <span className="dot" />
       <span className="region-label">
         <strong>{name}</strong>
@@ -194,15 +244,16 @@ function RegionNode({ name, sub, x, y }) {
   );
 }
 
-function RegionPanel({ onClose }) {
+function RegionPanel({ region, onClose }) {
   const navigate = useNavigate();
+  if (!region) return null;
   return (
     <div className="region-panel">
       <button className="close" onClick={onClose}><X size={20} /></button>
-      <h3>Central America</h3>
-      <p>3 Active Pilots</p>
+      <h3>{region.label}</h3>
+      <p>{region.count} Active Pilots</p>
       <div className="panel-list">
-        {regionPilots.map(p => (
+        {region.pilots.map(p => (
           <button key={p.name} className="panel-item" onClick={() => navigate(p.path)}>
             <img src={p.image} alt={p.name} />
             <div>
@@ -215,7 +266,7 @@ function RegionPanel({ onClose }) {
         ))}
       </div>
       <button className="panel-link" onClick={() => navigate('/deals')}>
-        View All Pilots in Central America <ChevronRight size={18} />
+        View All Pilots in {region.label} <ChevronRight size={18} />
       </button>
     </div>
   );
